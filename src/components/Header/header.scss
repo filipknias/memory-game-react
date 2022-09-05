@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.header-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .header {
+    font-size: 40px;
+    font-weight: $font-bold;
+    color: black;
+  }
+  .nav-container {
+    display: flex;
+    gap: 15px;
+    .nav-button {
+      border: none;
+      border-radius: 20px;
+      padding: 15px 20px;
+      font-weight: $font-bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease-out;
+      &.reset-button {
+        background-color: $orange;
+        color: white;
+        &:hover {
+          filter: opacity(0.7);
+        }
+      }
+      &.new-game-button {
+        background-color: $gray;
+        color: $text-dark;
+        &:hover {
+          background-color: $blue;
+          color: white;
+        }
+      }
+    }
+  }
+}

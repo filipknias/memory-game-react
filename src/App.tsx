@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './pages/Home/Home';
-import Game from './pages/Game';
+import Game from './pages/Game/Game';
 
 const App: FC = () => {
   return (

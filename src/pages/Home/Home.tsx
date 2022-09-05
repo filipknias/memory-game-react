@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import "./Home.scoped.scss";
+import "./homePage.scss";
 import { Link } from 'react-router-dom';
 
 export type Theme = 'numbers'|'icons';
@@ -11,9 +11,9 @@ const Home: FC = () => {
   const [gridSize, setGridSize] = useState<GridSize>(4);
 
   return (
-    <div className="background-container">
-      <div className="content-container">
-        <h1 className="header">memory</h1>
+    <div className="home-background">
+      <div className="home-content">
+        <h1 className="home-header">memory</h1>
         <div className="settings-container">
           <div className="setting-group">
             <h2 className="setting-label">Select Theme</h2>

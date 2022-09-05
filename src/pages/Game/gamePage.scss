@@ -1,0 +1,28 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.game-background {
+  background-color: $background-light;
+
+  .game-content {
+    width: 40%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    @include centerContent();
+    flex-direction: column;
+    gap: 40px;
+
+    @media screen and (max-width: $breakpoint-lg) {
+      width: 60%;
+    }
+
+    @media screen and (max-width: $breakpoint-md) {
+      width: 80%;
+    }
+
+    @media screen and (max-width: $breakpoint-sm) {
+      width: 90%;
+    }
+  }
+}
