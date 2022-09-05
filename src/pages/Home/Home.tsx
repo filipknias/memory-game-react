@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import "./Home.scss";
+import { Link } from 'react-router-dom';
 
 export type Theme = 'numbers'|'icons';
 export type GridSize = 4|6;
@@ -19,12 +20,14 @@ const Home: FC = () => {
             <button 
               className={`setting-button ${theme === 'numbers' ? 'setting-button-active' : ''}`} 
               onClick={() => setTheme('numbers')}
+              role="theme-button"
             >
               Numbers
             </button>
             <button 
               className={`setting-button ${theme === 'icons' ? 'setting-button-active' : ''}`}
               onClick={() => setTheme('icons')}
+              role="theme-button"
             >
               Icons
             </button>
@@ -36,24 +39,28 @@ const Home: FC = () => {
             <button 
               className={`setting-button ${players === 1 ? 'setting-button-active' : ''}`}
               onClick={() => setPlayers(1)}
+              role="player-button"
             >
               1
             </button>
             <button 
               className={`setting-button ${players === 2 ? 'setting-button-active' : ''}`}
               onClick={() => setPlayers(2)}
+              role="player-button"
             >
               2
             </button>
             <button 
               className={`setting-button ${players === 3 ? 'setting-button-active' : ''}`}
               onClick={() => setPlayers(3)}
+              role="player-button"
             >
               3
             </button>
             <button 
               className={`setting-button ${players === 4 ? 'setting-button-active' : ''}`}
               onClick={() => setPlayers(4)}
+              role="player-button"
             >
               4
             </button>
@@ -65,18 +72,22 @@ const Home: FC = () => {
             <button 
               className={`setting-button ${gridSize === 4 ? 'setting-button-active' : ''}`}
               onClick={() => setGridSize(4)}
+              role="grid-size-button"
             >
               4x4
             </button>
             <button 
               className={`setting-button ${gridSize === 6 ? 'setting-button-active' : ''}`}
               onClick={() => setGridSize(6)}
+              role="grid-size-button"
             >
               6x6
             </button>
           </div>
         </div>
-        <button className="start-game-button">Start game</button>
+        <Link to={`/game?theme=${theme}&players=${players}&gridSize=${gridSize}`} className="start-game-button">
+          Start game
+        </Link>
       </div>
     </div>
   )
