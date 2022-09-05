@@ -1,13 +1,11 @@
 import { FC, useState } from 'react';
 import "./homePage.scss";
 import { Link } from 'react-router-dom';
-
-export type Theme = 'numbers'|'icons';
-export type GridSize = 4|6;
+import { GridSize, Players, Theme } from '../../utilities/types';
 
 const Home: FC = () => {
   const [theme, setTheme] = useState<Theme>('numbers');
-  const [players, setPlayers] = useState<number>(1);
+  const [players, setPlayers] = useState<Players>(1);
   const [gridSize, setGridSize] = useState<GridSize>(4);
 
   return (

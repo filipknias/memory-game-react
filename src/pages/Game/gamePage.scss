@@ -11,7 +11,7 @@
     padding: 20px;
     @include centerContent();
     flex-direction: column;
-    gap: 40px;
+    gap: 60px;
 
     @media screen and (max-width: $breakpoint-lg) {
       width: 60%;

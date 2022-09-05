@@ -1,0 +1,38 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.game-board-grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 70%;
+  .memory-tile {
+    border-radius: 50%;
+    background-color: $text-dark;
+    @include centerContent(); 
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    font-size: 40px;
+    font-weight: $font-bold;
+    color: white;
+    transition: all 0.2s ease-out;
+    @media screen and (max-width: $breakpoint-md) {
+      height: 80px;
+      width: 80px;
+      font-size: 30px;
+    }
+    @media screen and (max-width: $breakpoint-sm) {
+      height: 50px;
+      width: 50px;
+      font-size: 20px;
+    }
+    &.memory-tile-opened {
+      background-color: $orange;
+    }
+    &.memory-tile-discovered {
+      background-color: $light-gray;
+    }
+  }
+}
