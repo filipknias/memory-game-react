@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import "./Home.scss";
+import "./Home.scoped.scss";
 import { Link } from 'react-router-dom';
 
 export type Theme = 'numbers'|'icons';
