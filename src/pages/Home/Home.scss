@@ -1,107 +1,107 @@
 @import "../../styles/variables";
 
-body {
+.background-container {
   background-color: $background-dark;
-}
-
-.container {
-  width: 40%;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 40px;
-
-  @media screen and (max-width: $breakpoint-lg) {
-    width: 60%;
-  }
-
-  @media screen and (max-width: $breakpoint-md) {
-    width: 80%;
-  }
-
-  @media screen and (max-width: $breakpoint-sm) {
-    width: 90%;
-  }
-
-  .header {
-    color: white;
-    font-size: 40px;
-    @media screen and (max-width: $breakpoint-md) {
-      font-size: 30px;
-    }
-  }
-
-  .button-group {
+  
+  .content-container {
+    width: 40%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
-  }
-
-  .settings-container {
-    background-color: white;
-    border-radius: 20px;
-    padding: 40px;
-    width: 100%;
-    display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 40px;
-    @media screen and (max-width: $breakpoint-md) {
-      padding: 30px;
-      gap: 30px;
+
+    @media screen and (max-width: $breakpoint-lg) {
+      width: 60%;
     }
-    .setting-group {
+
+    @media screen and (max-width: $breakpoint-md) {
+      width: 80%;
+    }
+
+    @media screen and (max-width: $breakpoint-sm) {
+      width: 90%;
+    }
+
+    .header {
+      color: white;
+      font-size: 40px;
+      @media screen and (max-width: $breakpoint-md) {
+        font-size: 30px;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .settings-container {
+      background-color: white;
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      .setting-label {
-        color: $text-light;
-        font-weight: $font-bold;
-        font-size: 20px;
-        @media screen and (max-width: $breakpoint-md) {
-          font-size: 15px;
-        }
+      gap: 40px;
+      @media screen and (max-width: $breakpoint-md) {
+        padding: 30px;
+        gap: 30px;
       }
-      .setting-button {
-        background-color: $gray;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 20px;
-        border: none;
-        cursor: pointer;
-        font-size: 25px;
-        flex: 1;
-        font-weight: $font-bold;
-        transition: background-color 0.2s ease-out;
-        &.setting-button-active {
-          background-color: $background-dark;
-        }
-        @media screen and (max-width: $breakpoint-md) {
+      .setting-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .setting-label {
+          color: $text-light;
+          font-weight: $font-bold;
           font-size: 20px;
+          @media screen and (max-width: $breakpoint-md) {
+            font-size: 15px;
+          }
+        }
+        .setting-button {
+          background-color: $gray;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 20px;
+          border: none;
+          cursor: pointer;
+          font-size: 25px;
+          flex: 1;
+          font-weight: $font-bold;
+          transition: background-color 0.2s ease-out;
+          &.setting-button-active {
+            background-color: $background-dark;
+          }
+          @media screen and (max-width: $breakpoint-md) {
+            font-size: 20px;
+          }
         }
       }
     }
-  }
 
-  .start-game-button {
-    background-color: $orange;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: $font-bold;
-    font-size: 20px;
-    cursor: pointer;
-    transition: filter 0.2s ease-out;
-    text-align: center;
-    &:hover {
-      filter: opacity(0.7);
-    }
-    @media screen and (max-width: $breakpoint-md) {
-      font-size: 15px;
+    .start-game-button {
+      background-color: $orange;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: $font-bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: filter 0.2s ease-out;
+      text-align: center;
+      &:hover {
+        filter: opacity(0.7);
+      }
+      @media screen and (max-width: $breakpoint-md) {
+        font-size: 15px;
+      }
     }
   }
 }
