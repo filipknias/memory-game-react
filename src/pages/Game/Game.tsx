@@ -14,6 +14,7 @@ interface SinglePlayerBoardStatusProps {
 
 interface MultiPlayerBoardStatusProps {
   playersStatus: Player[];
+  currentIndexTurn: number;
 }
 
 interface Player {
@@ -32,17 +33,22 @@ const SinglePlayerBoardStatus: FC<SinglePlayerBoardStatusProps> = ({ moves }) =>
 
   return (
     <> 
-      <StatusCard label='Time' status={timeString} />
-      <StatusCard label='Moves' status={moves.toString()} />
+      <StatusCard label='Time' status={timeString} active={false} />
+      <StatusCard label='Moves' status={moves.toString()} active={false} />
     </>
   )
 };
 
-const MultiPlayerBoardStatus: FC<MultiPlayerBoardStatusProps> = ({ playersStatus }) => {
+const MultiPlayerBoardStatus: FC<MultiPlayerBoardStatusProps> = ({ playersStatus, currentIndexTurn }) => {
   return (
     <> 
       {playersStatus.map(({ index, points }) => (
-        <StatusCard key={index} label={`P${index}`} status={points.toString()} />
+        <StatusCard 
+          key={index} 
+          label={`P${index}`} 
+          status={points.toString()} 
+          active={currentIndexTurn === index}  
+        />
       ))}
     </>
   )
@@ -53,6 +59,7 @@ const Game: FC = () => {
   const navigate = useNavigate();
   const [moves, setMoves] = useState<number>(0);
   const [playersStatus, setPlayersStatus] = useState<Player[]>([]);
+  const [playerIndexTurn, setPlayerIndexTurn] = useState<number>(0);
 
   const theme = useMemo((): Theme => {
     const theme = searchParams.get('theme');
@@ -82,23 +89,43 @@ const Game: FC = () => {
 
   useEffect(() => {
     const initialPlayersStatus: Player[] = [];
-    for (let i=1; i<=players; i++) {
+    for (let i=0; i<=players-1; i++) {
       initialPlayersStatus.push({ index: i, points: 0 });
     }
     setPlayersStatus(initialPlayersStatus);
   }, [players]);
+
+  const onDiscoverItem = () => {
+    // Update current player points
+    const updatedPlayers = playersStatus.map((player) => {
+      if (player.index === playerIndexTurn) return { ...player, points: player.points + 1 };
+      else return player;
+    });
+    setPlayersStatus(updatedPlayers);
+  };
+
+  const onMoveFinished = () => {
+    // Set next player turn if there is more players
+    if (players > 1) {
+      if (playerIndexTurn >= players-1) setPlayerIndexTurn(0);
+      else setPlayerIndexTurn(playersStatus[playerIndexTurn + 1].index);
+    }
+    // Update moves state
+    setMoves((prevMoves) => prevMoves + 1);
+  };
 
   return (
     <div className="game-background">
       <div className="game-content">
         <Header />
         <GameBoard 
-          theme={theme} 
-          players={players} 
+          theme={theme}
           gridSize={gridSize} 
+          onMoveFinished={onMoveFinished}
+          onDiscoverItem={players > 1 ? onDiscoverItem : undefined}
         />
         <BoardStatus>
-          {players === 1 ? <SinglePlayerBoardStatus moves={0} /> : <MultiPlayerBoardStatus playersStatus={playersStatus} />}
+          {players === 1 ? <SinglePlayerBoardStatus moves={moves} /> : <MultiPlayerBoardStatus playersStatus={playersStatus} currentIndexTurn={playerIndexTurn} />}
         </BoardStatus>
       </div>
     </div>

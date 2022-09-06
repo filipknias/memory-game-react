@@ -7,8 +7,9 @@ import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 
 interface Props {
   theme: Theme;
-  players: Players;
   gridSize: GridSize;
+  onDiscoverItem?: () => void;
+  onMoveFinished: () => void;
 }
 
 type MemoryContent = number|JSX.Element;
@@ -20,7 +21,7 @@ interface MemoryItem {
   discovered: boolean;
 }
 
-const GameBoard: FC<Props> = ({ theme, players, gridSize }) => {
+const GameBoard: FC<Props> = ({ theme, gridSize, onMoveFinished, onDiscoverItem }) => {
   const [memoryItems, setMemoryItems] = useState<MemoryItem[]>([]);
   const [clickDisabled, setClickDisabled] = useState<boolean>(false);
 
@@ -73,11 +74,17 @@ const GameBoard: FC<Props> = ({ theme, players, gridSize }) => {
       // Mark item as discovered
       setTimeout(() => {
         setMemoryItems((prevItems) => prevItems.map((memoryItem) => memoryItem.id === item.id || memoryItem.id === openedItem.id ? { ...memoryItem, discovered: true, opened: false } : memoryItem));
+        // Discover item higher state changes
+        if (onDiscoverItem) onDiscoverItem();
+        // Move finished
+        onMoveFinished();
       }, 1000);
     } else {
       // Close opened items
       setTimeout(() => {
         setMemoryItems((prevItems) => prevItems.map((memoryItem) => { return { ...memoryItem, opened: false } }));
+        // Move finished
+        onMoveFinished();
       }, 1000);
     }
   };  

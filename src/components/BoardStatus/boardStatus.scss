@@ -17,16 +17,19 @@
   gap: 10px;
   font-weight: $font-bold;
   border-radius: 5px;
+  color: $text-dark;
+  &.status-card-active {
+    background-color: $orange;
+    color: white;
+  }
   @media screen and (max-width: $breakpoint-md) {
     padding: 10px 30px;
   }
   .status-label {
     font-size: 15px;
-    color: $text-dark;
   }
   .status-content {
     font-size: 25px;
-    color: $text-dark;
     @media screen and (max-width: $breakpoint-md) {
       font-size: 20px;
     }
