@@ -91,7 +91,7 @@ const GameBoard: FC<Props> = ({ theme, players, gridSize }) => {
         <div 
           key={item.id} 
           role={`memory-item-${item.id}`}
-          className={`memory-tile ${item.opened ? 'memory-tile-opened' : ''} ${item.discovered ? 'memory-tile-discovered' : ''}`}
+          className={`memory-tile ${item.opened ? 'memory-tile-opened' : ''}${item.discovered ? 'memory-tile-discovered' : ''}`}
           onClick={() => handleMemoryItemClick(item)}
         >
           {item.opened || item.discovered ? item.content : null}
