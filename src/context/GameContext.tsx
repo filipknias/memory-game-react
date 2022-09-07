@@ -56,6 +56,7 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
 
   useEffect(() => setupPlayers, [playersCount]);
 
+  // TODO: extract to helper function
   useEffect(() => {
     // Generate board data
     let memoryContent: MemoryContent[] = [];
@@ -81,7 +82,7 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
       }
     });
     setMemoryItems(shuffledMemoryItems);
-  }, []);
+  }, [gridSize]);
 
   const increasePlayerPoints = (playerId: number) => {
     setPlayers((prevPlayers) => prevPlayers.map((player) => player.id === playerId ? { ...player, points: player.points + 1 } : player));

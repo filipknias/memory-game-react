@@ -69,7 +69,7 @@ const GameBoard: FC<Props> = ({ gridSize }) => {
       }, 1000);
     }
   };  
-
+  
   return (
     <div 
       className="game-board-grid" 
