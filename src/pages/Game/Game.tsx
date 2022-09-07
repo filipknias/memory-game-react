@@ -3,50 +3,11 @@ import "./gamePage.scss";
 import Header from '../../components/Header/Header';
 import GameBoard from '../../components/GameBoard/GameBoard';
 import BoardStatus from '../../components/BoardStatus/BoardStatus';
-import StatusCard from '../../components/BoardStatus/StatusCard';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { GridSize, PlayersCount, Theme } from '../../utilities/types';
-import { GameProvider, useGameContext } from '../../context/GameContext';
-
-// TODO: move to seperate files
-const SinglePlayerBoardStatus: FC = () => {
-  const { timer, playerIdTurn, players } = useGameContext();
-
-  const timeString = useMemo((): string => {
-    let secondsString = `${timer.seconds}`;
-    if (timer.seconds < 10) secondsString = '0' + secondsString;
-    return `${timer.minutes}:${secondsString}`;
-  }, [timer.seconds, timer.minutes]);
-
-  const moves = useMemo((): number => {
-    const currentPlayer = players.find((player) => player.id === playerIdTurn);
-    if (!currentPlayer) return 0;
-    return currentPlayer.moves;
-  }, [players]);
-
-  return (
-    <> 
-      <StatusCard label='Time' status={timeString} active={false} />
-      <StatusCard label='Moves' status={moves.toString()} active={false} />
-    </>
-  )
-};
-
-const MultiPlayerBoardStatus: FC = () => {
-  const { players, playerIdTurn } = useGameContext();
-  return (
-    <> 
-      {players.map(({ id, points }) => (
-        <StatusCard 
-          key={id} 
-          label={`P${id}`} 
-          status={points.toString()} 
-          active={playerIdTurn === id}  
-        />
-      ))}
-    </>
-  )
-};
+import { GameProvider } from '../../context/GameContext';
+import SinglePlayerBoardStatus from '../../components/BoardStatus/SinglePlayerBoardStatus';
+import MultiPlayerBoardStatus from '../../components/BoardStatus/MultiPlayerBoardStatus';
 
 const Game: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
