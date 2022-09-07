@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react'
 
-const useTimer = () => {
+export interface Timer {
+  minutes: number;
+  seconds: number;
+  resetTimer: () => void;
+}
+
+export const useTimer = (): Timer => {
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
 
@@ -19,7 +25,10 @@ const useTimer = () => {
     } 
   }, [seconds]);
 
-  return { minutes, seconds };
-};
+  const resetTimer = () => {
+    setSeconds(0);
+    setMinutes(0);
+  };
 
-export default useTimer;
+  return { minutes, seconds, resetTimer };
+};

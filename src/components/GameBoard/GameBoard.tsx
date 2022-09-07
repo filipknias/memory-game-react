@@ -1,56 +1,25 @@
 import { FC, useState, useEffect } from 'react';
 import "./gameBoard.scss";
-import { GridSize, Players, Theme } from '../../utilities/types';
-import { loadIcons } from '../../helpers/loadIcons';
-import { shuffleArray } from '../../helpers/shuffleArray';
-import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
+import { GridSize } from '../../utilities/types';
+import { useGameContext } from '../../context/GameContext';
+import { MemoryItem } from '../../context/types';
 
 interface Props {
-  theme: Theme;
   gridSize: GridSize;
-  onDiscoverItem?: () => void;
-  onMoveFinished: () => void;
 }
 
-type MemoryContent = number|JSX.Element;
-
-interface MemoryItem {
-  id: number;
-  content: MemoryContent;
-  opened: boolean;
-  discovered: boolean;
-}
-
-const GameBoard: FC<Props> = ({ theme, gridSize, onMoveFinished, onDiscoverItem }) => {
-  const [memoryItems, setMemoryItems] = useState<MemoryItem[]>([]);
+const GameBoard: FC<Props> = ({ gridSize }) => {
   const [clickDisabled, setClickDisabled] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Generate board data
-    let memoryContent: MemoryContent[] = [];
-    const maxNumber = (gridSize*gridSize)/2;
-    // Fill memoryContent array with shuffled content based on selected theme
-    if (theme === 'icons') {
-      // Push icons to array
-      const icons = loadIcons.map((icon) => <FontAwesomeIcon icon={icon} />);
-      icons.length = maxNumber;
-      memoryContent = icons;
-    } else {
-      // Push numbers to array
-      for (let i=1; i <= maxNumber; i++) memoryContent.push(i);
-    }
-
-    // Set shuffled memory content to memory items state
-    const shuffledMemoryItems = [...shuffleArray(memoryContent), ...shuffleArray(memoryContent)].map((content, index) => {
-      return {
-        id: index,
-        content,
-        opened: false,
-        discovered: false,
-      }
-    });
-    setMemoryItems(shuffledMemoryItems);
-  }, []);
+  const { 
+    memoryItems,
+    markMemoryItemOpened,
+    markMemoryItemDiscovered,
+    closeOpenedItems,
+    increasePlayerPoints,
+    players,
+    playerIdTurn,
+    increasePlayerMoves,
+  } = useGameContext();
 
   useEffect(() => {
     // Prevent from opening more than 2 items
@@ -59,11 +28,24 @@ const GameBoard: FC<Props> = ({ theme, gridSize, onMoveFinished, onDiscoverItem 
     else setClickDisabled(false);
   }, [memoryItems]);
 
+  const onItemDiscover = () => {
+    // Increase current player points
+    const currentPlayer = players.find((player) => player.id === playerIdTurn);
+    if (currentPlayer) increasePlayerPoints(currentPlayer.id);
+  };
+
+  const onMoveFinished = () => {
+    // Increase player moves and set next turn
+    increasePlayerMoves(playerIdTurn);
+    // Close all items
+    closeOpenedItems();
+  };
+
   const handleMemoryItemClick = (item: MemoryItem) => {
     if (item.discovered || item.opened || clickDisabled) return;
 
     // Mark item as opened
-    setMemoryItems((prevItems) => prevItems.map((memoryItem) => memoryItem.id === item.id ? { ...memoryItem, opened: true } : memoryItem));
+    markMemoryItemOpened(item.id);
 
     // Check for opened item
     const openedItem = memoryItems.find((item) => item.opened);
@@ -71,18 +53,17 @@ const GameBoard: FC<Props> = ({ theme, gridSize, onMoveFinished, onDiscoverItem 
     
     // Check for pair
     if (openedItem && openedItem.content === item.content) {
-      // Mark item as discovered
       setTimeout(() => {
-        setMemoryItems((prevItems) => prevItems.map((memoryItem) => memoryItem.id === item.id || memoryItem.id === openedItem.id ? { ...memoryItem, discovered: true, opened: false } : memoryItem));
-        // Discover item higher state changes
-        if (onDiscoverItem) onDiscoverItem();
+        // Update player points and mark item as discovered
+        onItemDiscover();
+        // Mark item as discovered
+        markMemoryItemDiscovered(item.id);
+        markMemoryItemDiscovered(openedItem.id);
         // Move finished
         onMoveFinished();
       }, 1000);
     } else {
-      // Close opened items
       setTimeout(() => {
-        setMemoryItems((prevItems) => prevItems.map((memoryItem) => { return { ...memoryItem, opened: false } }));
         // Move finished
         onMoveFinished();
       }, 1000);
