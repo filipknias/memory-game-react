@@ -30,7 +30,7 @@ const GameContext = createContext<GameContext>({
   players: [],
   memoryItems: [],
   playerIdTurn: 0,
-  timer: { seconds: 0, minutes: 0, resetTimer: () => {} },
+  timer: { seconds: 0, minutes: 0, resetTimer: () => {}, stopTimer: () => {} },
   increasePlayerPoints: () => {},
   increasePlayerMoves: () => {},
   markMemoryItemOpened: () => {},

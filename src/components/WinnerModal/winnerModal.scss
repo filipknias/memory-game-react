@@ -1,0 +1,116 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.modal-overlay {
+  @include centerContent();
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    width: 30%;
+    @include centerContent();
+    flex-direction: column;
+    gap: 60px;
+    @media screen and (max-width: $breakpoint-lg) {
+      width: 60%;
+    }
+    @media screen and (max-width: $breakpoint-md) {
+      width: 80%;
+      padding: 40px 20px;
+    }
+    @media screen and (max-width: $breakpoint-sm) {
+      width: 90%;
+    }
+    .modal-header {
+      color: $text-dark;
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 5px;
+      @media screen and (max-width: $breakpoint-md) {
+        font-size: 30px;
+      }
+    }
+    .modal-subheader {
+      font-weight: $font-bold;
+      font-size: 20px;
+      color: $text-light;
+      @media screen and (max-width: $breakpoint-md) {
+        font-size: 15px;
+      }
+    }
+    .modal-summary-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      .summary-item {
+        background-color: $gray;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &.summary-item-active {
+          background-color: $background-dark;
+          .summary-label,
+          .summary-info {
+            color: white;
+          }
+        }
+        @media screen and (max-width: $breakpoint-md) {
+          font-size: 10px;
+        }
+        .summary-label {
+          color: $text-light; 
+        }
+        .summary-info {
+          color: $text-dark;
+        }
+      }
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      .restart-button, 
+      .setup-new-game-button { 
+        flex: 1;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: $font-bold;
+        transition: all 0.2s ease-out;
+        text-align: center;
+        @media screen and (max-width: $breakpoint-md) {
+          font-size: 15px;
+        }
+      } 
+      .restart-button {
+        background-color: $orange;
+        color: white;
+        &:hover {
+          filter: opacity(0.7);
+        }
+      }
+      .setup-new-game-button {
+        color: $text-dark;
+        background-color: $gray;
+        &:hover {
+          background-color: $background-dark;
+          color: white;
+        }
+      }
+    }
+  }
+}

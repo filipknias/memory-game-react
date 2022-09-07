@@ -38,13 +38,13 @@ const Game: FC = () => {
     const gridSize = searchParams.get('gridSize');
     if (!theme || !players || !gridSize) return navigate('/');
   }, [searchParams]);
-  
+
   return (
     <GameProvider theme={theme} playersCount={playersCount} gridSize={gridSize}>
       <div className="game-background">
         <div className="game-content">
           <Header />
-          <GameBoard gridSize={gridSize} />
+          <GameBoard gridSize={gridSize} playersCount={playersCount} />
           <BoardStatus>
             {playersCount === 1 ? <SinglePlayerBoardStatus /> : <MultiPlayerBoardStatus />}
           </BoardStatus>

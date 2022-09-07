@@ -1,15 +1,18 @@
 import { FC, useState, useEffect } from 'react';
 import "./gameBoard.scss";
-import { GridSize } from '../../utilities/types';
+import { GridSize, PlayersCount } from '../../utilities/types';
 import { useGameContext } from '../../context/GameContext';
 import { MemoryItem } from '../../context/types';
+import WinnerModal from '../WinnerModal/WinnerModal';
 
 interface Props {
   gridSize: GridSize;
+  playersCount: PlayersCount;
 }
 
-const GameBoard: FC<Props> = ({ gridSize }) => {
+const GameBoard: FC<Props> = ({ gridSize, playersCount }) => {
   const [clickDisabled, setClickDisabled] = useState<boolean>(false);
+  const [winnerModalOpen, setWinnerModalOpen] = useState<boolean>(false);
   const { 
     memoryItems,
     markMemoryItemOpened,
@@ -19,6 +22,7 @@ const GameBoard: FC<Props> = ({ gridSize }) => {
     players,
     playerIdTurn,
     increasePlayerMoves,
+    timer
   } = useGameContext();
 
   useEffect(() => {
@@ -26,7 +30,21 @@ const GameBoard: FC<Props> = ({ gridSize }) => {
     const openedItems = memoryItems.filter((item) => item.opened);
     if (openedItems.length >= 2) setClickDisabled(true);
     else setClickDisabled(false);
+    // Check for win
+    checkForWin();
   }, [memoryItems]);
+  
+  const checkForWin = () => {
+    if (memoryItems.length === 0) return;
+    
+    const discoveredMemoryItems = memoryItems.filter((item) => item.discovered);
+    if (discoveredMemoryItems.length === memoryItems.length) {
+      // Stop time
+      timer.stopTimer();
+      // Display winner modal
+      setWinnerModalOpen(true);
+    }
+  };
 
   const onItemDiscover = () => {
     // Increase current player points
@@ -85,6 +103,7 @@ const GameBoard: FC<Props> = ({ gridSize }) => {
           {item.opened || item.discovered ? item.content : null}
         </div>
       ))}
+      {winnerModalOpen && <WinnerModal playersCount={playersCount} />}
     </div>
   )
 }

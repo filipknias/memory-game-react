@@ -4,16 +4,19 @@ export interface Timer {
   minutes: number;
   seconds: number;
   resetTimer: () => void;
+  stopTimer: () => void;
 }
 
 export const useTimer = (): Timer => {
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timer|null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
     }, 1000);
+    setIntervalId(timer);
 
     return () => clearInterval(timer);
   }, []);
@@ -30,5 +33,10 @@ export const useTimer = (): Timer => {
     setMinutes(0);
   };
 
-  return { minutes, seconds, resetTimer };
+  const stopTimer = () => {
+    if (!intervalId) return;
+    clearInterval(intervalId);
+  };
+
+  return { minutes, seconds, resetTimer, stopTimer };
 };
