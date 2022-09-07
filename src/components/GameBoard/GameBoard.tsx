@@ -103,7 +103,7 @@ const GameBoard: FC<Props> = ({ gridSize, playersCount }) => {
           {item.opened || item.discovered ? item.content : null}
         </div>
       ))}
-      {winnerModalOpen && <WinnerModal playersCount={playersCount} />}
+      {winnerModalOpen && <WinnerModal playersCount={playersCount} closeModal={() => setWinnerModalOpen(false)} />}
     </div>
   )
 }

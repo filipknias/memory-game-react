@@ -1,10 +1,7 @@
 import { useState, useEffect, useContext, createContext, ReactNode, FC } from 'react';
 import { useTimer, Timer } from '../hooks/useTimer';
 import { GridSize, Theme, PlayersCount } from '../utilities/types';
-import { loadIcons } from '../helpers/loadIcons';
-import { shuffleArray } from '../helpers/shuffleArray';
-import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
-import { MemoryItem, Player, MemoryContent } from './types';
+import { MemoryItem, Player } from './types';
 import { generateMemoryItems } from '../helpers/generateMemoryItems';
 
 interface GameContext {
@@ -17,6 +14,7 @@ interface GameContext {
   markMemoryItemOpened: (itemId: number) => void;
   markMemoryItemDiscovered: (itemId: number) => void;
   closeOpenedItems: () => void;
+  resetGame: () => void;
 }
 
 interface GameProviderProps {
@@ -36,6 +34,7 @@ const GameContext = createContext<GameContext>({
   markMemoryItemOpened: () => {},
   markMemoryItemDiscovered: () => {},
   closeOpenedItems: () => {},
+  resetGame: () => {},
 });
 
 export const useGameContext = () => useContext(GameContext);
@@ -93,6 +92,15 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
     setMemoryItems((prevItems) => prevItems.map((memoryItem) => { return { ...memoryItem, opened: false } }));
   };
 
+  const resetGame = () => {
+    // Reset timer
+    timer.resetTimer();
+    // Reset game state
+    setupPlayers();
+    setPlayerIdTurn(players[0].id);
+    setMemoryItems(generateMemoryItems(theme, gridSize));
+  };
+
   const value = {
     players,
     playerIdTurn,
@@ -103,6 +111,7 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
     markMemoryItemOpened,
     markMemoryItemDiscovered,
     closeOpenedItems,
+    resetGame,
   }
 
   return (

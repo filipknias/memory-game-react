@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   playersCount: PlayersCount;
+  closeModal: () => void;
 }
 
-const WinnerModal: FC<Props> = ({ playersCount }) => {
-  const { players, timer } = useGameContext();
+const WinnerModal: FC<Props> = ({ playersCount, closeModal }) => {
+  const { players, timer, resetGame } = useGameContext();
 
   const playersScoreboard = players.sort((p1, p2) => {
     return p2.points - p1.points;
@@ -51,12 +52,17 @@ const WinnerModal: FC<Props> = ({ playersCount }) => {
     </>
   );
 
+  const handleGameRestart = () => {
+    resetGame();
+    closeModal();
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         {playersCount === 1 ? SinglePlayerModalContent : MultiPlayerModalContent}
         <div className="buttons-container">
-          <button className="restart-button">Restart</button>
+          <button className="restart-button" onClick={handleGameRestart}>Restart</button>
           <Link to="/" className="setup-new-game-button">Setup New Game</Link>
         </div>
       </div>
