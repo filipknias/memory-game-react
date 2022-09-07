@@ -39,7 +39,7 @@ const MultiPlayerBoardStatus: FC = () => {
       {players.map(({ id, points }) => (
         <StatusCard 
           key={id} 
-          label={`P${id+1}`} 
+          label={`P${id}`} 
           status={points.toString()} 
           active={playerIdTurn === id}  
         />

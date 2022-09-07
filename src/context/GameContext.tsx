@@ -41,14 +41,14 @@ export const useGameContext = () => useContext(GameContext);
 
 export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridSize, children }) => {
   const [players, setPlayers] = useState<Player[]>([]);
-  const [playerIdTurn, setPlayerIdTurn] = useState<number>(0);
+  const [playerIdTurn, setPlayerIdTurn] = useState<number>(1);
   const [memoryItems, setMemoryItems] = useState<MemoryItem[]>([]);
   const timer = useTimer();
 
   const setupPlayers = () => {
     // Setup new players state
     const initialPlayersStatus: Player[] = [];
-    for (let i=0; i<=playersCount-1; i++) {
+    for (let i=1; i<=playersCount; i++) {
       initialPlayersStatus.push({ id: i, points: 0, moves: 0 });
     }
     setPlayers(initialPlayersStatus);   
