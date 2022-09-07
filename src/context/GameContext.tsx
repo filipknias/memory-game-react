@@ -5,6 +5,7 @@ import { loadIcons } from '../helpers/loadIcons';
 import { shuffleArray } from '../helpers/shuffleArray';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { MemoryItem, Player, MemoryContent } from './types';
+import { generateMemoryItems } from '../helpers/generateMemoryItems';
 
 interface GameContext {
   players: Player[];
@@ -56,40 +57,16 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
 
   useEffect(() => setupPlayers, [playersCount]);
 
-  // TODO: extract to helper function
   useEffect(() => {
-    // Generate board data
-    let memoryContent: MemoryContent[] = [];
-    const maxNumber = (gridSize*gridSize)/2;
-    // Fill memoryContent array with shuffled content based on selected theme
-    if (theme === 'icons') {
-      // Push icons to array
-      const icons = loadIcons.map((icon) => <FontAwesomeIcon icon={icon} />);
-      icons.length = maxNumber;
-      memoryContent = icons;
-    } else {
-      // Push numbers to array
-      for (let i=1; i <= maxNumber; i++) memoryContent.push(i);
-    }
-
-    // Set shuffled memory content to memory items state
-    const shuffledMemoryItems = [...shuffleArray(memoryContent), ...shuffleArray(memoryContent)].map((content, index) => {
-      return {
-        id: index,
-        content,
-        opened: false,
-        discovered: false,
-      }
-    });
-    setMemoryItems(shuffledMemoryItems);
-  }, [gridSize]);
+   setMemoryItems(generateMemoryItems(theme, gridSize));
+  }, [theme, gridSize]);
 
   const increasePlayerPoints = (playerId: number) => {
     setPlayers((prevPlayers) => prevPlayers.map((player) => player.id === playerId ? { ...player, points: player.points + 1 } : player));
   };
 
   const increasePlayerMoves = (playerId: number) => {
-    // Increase current player moves
+    // Increase player moves
     setPlayers((prevPlayers) => prevPlayers.map((player) => player.id === playerId ? { ...player, moves: player.moves + 1 } : player));
     // Find current player in array
     const currentPlayer = players.find((player) => player.id === playerId);
