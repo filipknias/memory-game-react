@@ -7,6 +7,37 @@
   align-items: center;
   gap: 20px;
   width: 70%;
+  &.grid-size-4 {
+    .memory-tile {
+      height: 100px;
+      width: 100px;
+      @media screen and (max-width: $breakpoint-md) {
+        height: 80px;
+        width: 80px;
+        font-size: 25px;
+      }
+      @media screen and (max-width: $breakpoint-sm) {
+        height: 70px;
+        width: 70px;
+      }
+    }
+  }
+  &.grid-size-6 {
+    .memory-tile {
+      height: 80px;
+      width: 80px;
+      @media screen and (max-width: $breakpoint-md) {
+        height: 80px;
+        width: 80px;
+        font-size: 30px;
+      }
+      @media screen and (max-width: $breakpoint-sm) {
+        height: 50px;
+        width: 50px;
+        font-size: 20px;
+      }
+    }
+  }
   .memory-tile {
     border-radius: 50%;
     background-color: $text-dark;
@@ -18,16 +49,6 @@
     font-weight: $font-bold;
     color: white;
     transition: all 0.2s ease-out;
-    @media screen and (max-width: $breakpoint-md) {
-      height: 80px;
-      width: 80px;
-      font-size: 30px;
-    }
-    @media screen and (max-width: $breakpoint-sm) {
-      height: 50px;
-      width: 50px;
-      font-size: 20px;
-    }
     &.memory-tile-opened {
       background-color: $orange;
     }

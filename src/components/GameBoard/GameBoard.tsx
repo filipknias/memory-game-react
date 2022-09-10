@@ -90,7 +90,7 @@ const GameBoard: FC<Props> = ({ gridSize, playersCount }) => {
   
   return (
     <div 
-      className="game-board-grid" 
+      className={`game-board-grid ${gridSize === 4 ? 'grid-size-4' : 'grid-size-6'}`}
       style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)`, gridTemplateRows: `repeat(${gridSize}, 1fr)` }}
     >
       {memoryItems.map((item) => (
