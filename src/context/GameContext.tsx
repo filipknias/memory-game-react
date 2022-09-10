@@ -51,7 +51,8 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
     for (let i=1; i<=playersCount; i++) {
       initialPlayersStatus.push({ id: i, points: 0, moves: 0 });
     }
-    setPlayers(initialPlayersStatus);   
+    setPlayers(initialPlayersStatus); 
+    setPlayerIdTurn(initialPlayersStatus[0].id);
   };
 
   useEffect(() => setupPlayers, [playersCount]);
@@ -59,6 +60,10 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
   useEffect(() => {
    setMemoryItems(generateMemoryItems(theme, gridSize));
   }, [theme, gridSize]);
+
+  useEffect(() => {
+    console.log(playerIdTurn)
+  }, [playerIdTurn]);
 
   const increasePlayerPoints = (playerId: number) => {
     setPlayers((prevPlayers) => prevPlayers.map((player) => player.id === playerId ? { ...player, points: player.points + 1 } : player));
