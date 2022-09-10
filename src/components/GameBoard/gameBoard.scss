@@ -42,8 +42,6 @@
     border-radius: 50%;
     background-color: $text-dark;
     @include centerContent(); 
-    height: 100px;
-    width: 100px;
     cursor: pointer;
     font-size: 40px;
     font-weight: $font-bold;
@@ -54,6 +52,7 @@
     }
     &.memory-tile-discovered {
       background-color: $light-gray;
+      cursor: default;
     }
   }
 }
