@@ -28,8 +28,8 @@ const WinnerModal: FC<Props> = ({ playersCount, closeModal }) => {
           <h2 className="summary-info">{timer.minutes}:{timer.seconds}</h2>
         </div>
         <div className="summary-item">
-          <h2 className="summary-label">{players[0].moves} Moves Taken</h2>
-          <h2 className="summary-info">Moves</h2>
+          <h2 className="summary-label">Moves</h2>
+          <h2 className="summary-info">{players[0].moves} Moves Taken</h2>
         </div>
       </div>
     </>
