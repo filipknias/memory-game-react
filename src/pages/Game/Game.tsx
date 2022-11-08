@@ -40,7 +40,6 @@ const Game: FC = () => {
     const theme = searchParams.get('theme');
     const players = searchParams.get('players');
     const gridSize = searchParams.get('gridSize');
-    console.log(searchParams.entries())
     if (!theme || !players || !gridSize) return navigate('/');
   }, [searchParams]);
 

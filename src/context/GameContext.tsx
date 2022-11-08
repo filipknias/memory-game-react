@@ -51,12 +51,11 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
     for (let i=1; i<=playersCount; i++) {
       initialPlayersStatus.push({ id: i, points: 0, moves: 0 });
     }
-    console.log(initialPlayersStatus)
     setPlayers(initialPlayersStatus); 
     setPlayerIdTurn(initialPlayersStatus[0].id);
   };
 
-  useEffect(() => setupPlayers, [playersCount]);
+  useEffect(setupPlayers, [playersCount]);
 
   useEffect(() => {
    setMemoryItems(generateMemoryItems(theme, gridSize));
