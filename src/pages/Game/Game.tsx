@@ -43,8 +43,6 @@ const Game: FC = () => {
     if (!theme || !players || !gridSize) return navigate('/');
   }, [searchParams]);
 
-  console.log(playersCount);
-
   return (
     <GameProvider theme={theme} playersCount={playersCount} gridSize={gridSize}>
       <div className="game-background">

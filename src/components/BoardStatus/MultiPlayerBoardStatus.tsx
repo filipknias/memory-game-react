@@ -4,6 +4,7 @@ import StatusCard from './StatusCard';
 
 const MultiPlayerBoardStatus: FC = () => {
   const { players, playerIdTurn } = useGameContext();
+  console.log(players);
   return (
     <> 
       {players.map(({ id, points }) => (
