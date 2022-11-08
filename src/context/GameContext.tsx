@@ -98,7 +98,6 @@ export const GameProvider: FC<GameProviderProps> = ({ theme, playersCount, gridS
     timer.resetTimer();
     // Reset game state
     setupPlayers();
-    setPlayerIdTurn(players[0].id);
     setMemoryItems(generateMemoryItems(theme, gridSize));
   };
 

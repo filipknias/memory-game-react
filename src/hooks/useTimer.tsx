@@ -33,9 +33,14 @@ export const useTimer = (): Timer => {
     }
   }, [seconds]);
 
-  const resetTimer = () => {
+  useEffect(() => {
     setSeconds(0);
     setMinutes(0);
+  }, [intervalId]);
+
+  const resetTimer = () => {
+    if (intervalId === null) return;
+    clearInterval(intervalId);
     const timer = getNewTimer();
     setIntervalId(timer);
   };
