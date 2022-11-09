@@ -2,11 +2,12 @@ import { FC, useState } from 'react';
 import "./homePage.scss";
 import { Link } from 'react-router-dom';
 import { GridSize, PlayersCount, Theme } from '../../utilities/types';
+import { DEFAULT_GRID_SIZE, DEFAULT_PLAYERS_COUNT, DEFAULT_THEME } from '../../utilities/constants';
 
 const Home: FC = () => {
-  const [theme, setTheme] = useState<Theme>('numbers');
-  const [players, setPlayers] = useState<PlayersCount>(1);
-  const [gridSize, setGridSize] = useState<GridSize>(4);
+  const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
+  const [players, setPlayers] = useState<PlayersCount>(DEFAULT_PLAYERS_COUNT);
+  const [gridSize, setGridSize] = useState<GridSize>(DEFAULT_GRID_SIZE);
 
   return (
     <div className="home-background">

@@ -8,10 +8,7 @@ import { GridSize, PlayersCount, Theme } from '../../utilities/types';
 import { GameProvider } from '../../context/GameContext';
 import SinglePlayerBoardStatus from '../../components/BoardStatus/SinglePlayerBoardStatus';
 import MultiPlayerBoardStatus from '../../components/BoardStatus/MultiPlayerBoardStatus';
-
-const DEFAULT_THEME = "numbers";
-const DEFAULT_PLAYERS_COUNT = 1;
-const DEFAULT_GRID_SIZE = 4;
+import { DEFAULT_GRID_SIZE, DEFAULT_PLAYERS_COUNT, DEFAULT_THEME } from '../../utilities/constants';
 
 const Game: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
