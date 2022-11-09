@@ -70,8 +70,9 @@ const GameBoard: FC<Props> = ({ gridSize, playersCount }) => {
     if (!openedItem) return;
     
     // Check for pair
+    let timeoutCallback = null;
     if (openedItem && openedItem.content === item.content) {
-      setTimeout(() => {
+      timeoutCallback = () => {
         // Update player points and mark item as discovered
         onItemDiscover();
         // Mark item as discovered
@@ -79,13 +80,11 @@ const GameBoard: FC<Props> = ({ gridSize, playersCount }) => {
         markMemoryItemDiscovered(openedItem.id);
         // Move finished
         onMoveFinished();
-      }, 1000);
+      }
     } else {
-      setTimeout(() => {
-        // Move finished
-        onMoveFinished();
-      }, 1000);
+      timeoutCallback = onMoveFinished;
     }
+    setTimeout(timeoutCallback, 1000);
   };  
   
   return (
